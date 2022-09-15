@@ -8,14 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var selection: Int = 0
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        VStack{
+            
+            TabView(selection: $selection) {
+                
+                HomeView().tabItem {
+                    NavigationLink(destination: HomeView()) {
+                        
+                        Image(systemName: "chart.xyaxis.line")
+                        Text("Price")
+                    }
+                    
+                }
+                
+                SettingView().tabItem {
+                    NavigationLink(destination: SettingView()) {
+                        Image(systemName: "gear.circle")
+                        Text("setting")
+                    }
+                }
+                
+            }
         }
-        .padding()
+        .onAppear{
+            
+        }
     }
 }
 
