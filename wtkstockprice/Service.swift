@@ -18,7 +18,9 @@ typealias Item = (text: String, html: String)
 
 
 class Service: ObservableObject {
-     var price: [Price] = []
+    var price: [Price] = []
+    var priceMax:Double = 0.0
+    var priceMin:Double = 0.0
     @Published var loading: Bool = false
     static var shared = Service()
     
@@ -35,12 +37,21 @@ class Service: ObservableObject {
         var items: [Item] = []
         
         print ("loaded")
-
-        if loading { return}
+        if self.loading {
+            print ("already going")
+            return
+            
+        }
+        DispatchQueue.main.async {
+            self.loading = true
+            
+            
+        }
         
         let urlString = "\(urlHead)\(stock_)"
         
         guard let url = URL(string: "\(urlHead)\(stock_)") else {
+            playNotificationHaptic(.error)
             fatalError("oops...\(urlString) not downloaded")
         }
 
@@ -62,28 +73,35 @@ class Service: ObservableObject {
                 let html = try element.outerHtml()
                 items.append(Item(text: text, html: html))
             }
+            self.priceMin = 1000.0
             
             for item in 0..<items.count {
                 let str = items[item].text
                 if str.contains("聯穎光電"){
                     let arr = str.components(separatedBy: " ")
                     if arr.count == 6 {
-
-                        let price = Price(id: UUID(), date: arr[0], buy: Float(arr[2]) ?? 0.0 , sell: Float(arr[3]) ?? 0.0, buyAmount: Int(arr[4]) ?? 0, sellAmount: Int(arr[5]) ?? 0)
+                        let price = Price(id: UUID(), date: arr[0], buy: Double(arr[2]) ?? 0.0 , sell: Double(arr[3]) ?? 0.0, buyAmount: Int(arr[4]) ?? 0, sellAmount: Int(arr[5]) ?? 0)
+                        priceMax = priceMax < price.sell ? price.sell : priceMax
+                        priceMin = priceMin > price.buy ? price.buy  : priceMin
                         self.price.append(price)
                     }
                 }
             }
             
+            for item in 0..<self.price.count - 1 {
+                self.price[item].priceUp = self.price[item].buy > self.price[item + 1] .buy
+                
+            }
+            
             DispatchQueue.main.async {
                 self.loading = false
             }
-            
+            playNotificationHaptic(.success)
             //            return .success(items)
         } catch _ {
             print ("oops...parse fail")
             //            return .failure(.badData)
-            
+            playNotificationHaptic(.error)
         } //: catch
         
         

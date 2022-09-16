@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27BD5E5428D3F6B10048C2E5 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BD5E5328D3F6B10048C2E5 /* ChartView.swift */; };
+		27BD5E5628D447120048C2E5 /* util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BD5E5528D447120048C2E5 /* util.swift */; };
 		27CB3F6428D2D8E300BCE83E /* wtkstockpriceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB3F6328D2D8E300BCE83E /* wtkstockpriceApp.swift */; };
 		27CB3F6628D2D8E300BCE83E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB3F6528D2D8E300BCE83E /* ContentView.swift */; };
 		27CB3F6828D2D8E400BCE83E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27CB3F6728D2D8E400BCE83E /* Assets.xcassets */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		27BD5E5328D3F6B10048C2E5 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		27BD5E5528D447120048C2E5 /* util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = util.swift; path = View/util.swift; sourceTree = "<group>"; };
 		27CB3F6028D2D8E300BCE83E /* wtkstockprice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wtkstockprice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CB3F6328D2D8E300BCE83E /* wtkstockpriceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wtkstockpriceApp.swift; sourceTree = "<group>"; };
 		27CB3F6528D2D8E300BCE83E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -70,6 +74,7 @@
 				27CB3F7228D2D90D00BCE83E /* ViewModel */,
 				27CB3F7128D2D90500BCE83E /* View */,
 				27CB3F7728D2D97500BCE83E /* Service.swift */,
+				27BD5E5528D447120048C2E5 /* util.swift */,
 				27CB3F6728D2D8E400BCE83E /* Assets.xcassets */,
 				27CB3F6928D2D8E400BCE83E /* Preview Content */,
 			);
@@ -90,6 +95,7 @@
 				27CB3F7328D2D91E00BCE83E /* HomeView.swift */,
 				27CB3F7C28D2D9CE00BCE83E /* SettingView.swift */,
 				27D45F0828D2E6710004213E /* SettingTextCellView.swift */,
+				27BD5E5328D3F6B10048C2E5 /* ChartView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -182,8 +188,10 @@
 				27CB3F7428D2D91E00BCE83E /* HomeView.swift in Sources */,
 				27D45F0928D2E6710004213E /* SettingTextCellView.swift in Sources */,
 				27CB3F6628D2D8E300BCE83E /* ContentView.swift in Sources */,
+				27BD5E5628D447120048C2E5 /* util.swift in Sources */,
 				27D45F0B28D306210004213E /* SettingViewModel.swift in Sources */,
 				27CB3F7828D2D97500BCE83E /* Service.swift in Sources */,
+				27BD5E5428D3F6B10048C2E5 /* ChartView.swift in Sources */,
 				27CB3F7D28D2D9CE00BCE83E /* SettingView.swift in Sources */,
 				27CB3F6428D2D8E300BCE83E /* wtkstockpriceApp.swift in Sources */,
 				27CB3F7628D2D95600BCE83E /* HomeViewModel.swift in Sources */,

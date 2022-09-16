@@ -52,6 +52,7 @@ struct HomeView: View {
                     
                 }
                 .padding()
+                ChartView()
                 Spacer()
             }//: VStack
             
