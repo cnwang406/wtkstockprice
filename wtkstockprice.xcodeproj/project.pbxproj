@@ -25,6 +25,7 @@
 /* Begin PBXFileReference section */
 		27BD5E5328D3F6B10048C2E5 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		27BD5E5528D447120048C2E5 /* util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = util.swift; path = View/util.swift; sourceTree = "<group>"; };
+		27BD5E5728D449010048C2E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		27CB3F6028D2D8E300BCE83E /* wtkstockprice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wtkstockprice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CB3F6328D2D8E300BCE83E /* wtkstockpriceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wtkstockpriceApp.swift; sourceTree = "<group>"; };
 		27CB3F6528D2D8E300BCE83E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -69,6 +70,7 @@
 		27CB3F6228D2D8E300BCE83E /* wtkstockprice */ = {
 			isa = PBXGroup;
 			children = (
+				27BD5E5728D449010048C2E5 /* Info.plist */,
 				27CB3F6328D2D8E300BCE83E /* wtkstockpriceApp.swift */,
 				27CB3F6528D2D8E300BCE83E /* ContentView.swift */,
 				27CB3F7228D2D90D00BCE83E /* ViewModel */,
@@ -326,11 +328,12 @@
 				DEVELOPMENT_TEAM = L43KX6QVVV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = wtkstockprice/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -355,11 +358,12 @@
 				DEVELOPMENT_TEAM = L43KX6QVVV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = wtkstockprice/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

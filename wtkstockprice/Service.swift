@@ -30,40 +30,104 @@ class Service: ObservableObject {
     var lll: String = "https%3A%2F%2Fwww.goodstock.com.tw%2Fstock_quote.php%3Fstockname%3D"
     var cssTextString : String = "tr"
     
+    var html: String = ""
+    
     // item founds
     
+ 
     func loadData() async throws{
-        var document: Document = Document.init("")
-        var items: [Item] = []
-        
-        print ("loaded")
+        print ("\(Date()) loaded")
+        let urlString = "\(urlHead)\(stock_)"
+
         if self.loading {
             print ("already going")
             return
-            
         }
         DispatchQueue.main.async {
             self.loading = true
+        }
+        let config = URLSessionConfiguration.background(withIdentifier: "wtkstockloading")
+        config.sessionSendsLaunchEvents = true
+        let session = URLSession(configuration: config)
+        let request = URLRequest(url: URL(string: urlString)!)
+        
+        let response = try? await withTaskCancellationHandler {
+            try? await session.data(for: request)
+        } onCancel: {
+            let task = session.downloadTask(with: request)
+            task.resume()
+        }
+        
+
+        if let data = response {
+            self.html = String(data: data.0, encoding:  .utf8) ?? ""
+            print ("\(Date()) download data ok \(data.0.count) bytes ")
+        } else {
+            print ("\(Date()) loadData fail!")
             
-            
+        }
+
+        
+        
+
+//        guard let url = URL(string: "\(urlHead)\(stock_)") else {
+//            playNotificationHaptic(.error)
+//            print ("\(Date()) oops...\(urlString) not downloaded")
+//            fatalError("oops...\(urlString) not downloaded")
+//        }
+//
+//        print ("\(Date()) loading url from \(url)")
+//        self.html = try String.init(contentsOf: url) // get data from internet
+        
+        print ("\(Date()) finish loading from internet)")
+    }
+    
+    
+    
+    func loadData2() async throws{
+        print ("\(Date()) loaded")
+        if self.loading {
+            print ("already going")
+            return
+        }
+        DispatchQueue.main.async {
+            self.loading = true
         }
         
         let urlString = "\(urlHead)\(stock_)"
-        
+
         guard let url = URL(string: "\(urlHead)\(stock_)") else {
             playNotificationHaptic(.error)
+            print ("\(Date()) oops...\(urlString) not downloaded")
             fatalError("oops...\(urlString) not downloaded")
         }
 
-
+        print ("\(Date()) loading url from \(url)")
+        self.html = try String.init(contentsOf: url) // get data from internet
+        DispatchQueue.main.async {
+            self.loading = true
+            self.price = []
+        }
+        
+        print ("\(Date()) finish loading from internet)")
+    }
+        
+    
+    
+    func parse(){
+        
+        var document: Document = Document.init("")
+        var items: [Item] = []
+        print ("\(Date()) loaded url done. start to parse")
+        if self.html == "" {
+            print ("\(Date()) html is empty. return")
+            return
+        }
+        DispatchQueue.main.async {
+            self.price = []
+        }
         do {
             //empty old items
-            let html = try String.init(contentsOf: url) // get data from internet
-            DispatchQueue.main.async {
-                self.loading = true
-                self.price = []
-            }
-            
             document = try SwiftSoup.parse(html)
             
             let elements: Elements = try document.select( self.cssTextString)
@@ -97,6 +161,7 @@ class Service: ObservableObject {
                 self.loading = false
             }
             playNotificationHaptic(.success)
+            print ("\(Date()) loadData done")
             //            return .success(items)
         } catch _ {
             print ("oops...parse fail")
@@ -106,5 +171,4 @@ class Service: ObservableObject {
         
         
     }
-    
 }

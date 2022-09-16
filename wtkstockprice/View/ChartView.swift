@@ -26,12 +26,12 @@ struct ChartView: View {
                 .font(.title2)
                 .fontWeight(.semibold)
             Chart{
-                var lastDeal = 0.0
+                
                 
                 ForEach (service.price.reversed()) { price in
                     
                     BarMark(
-                        x: .value("Date", String(price.date.suffix(2) ?? "")),
+                        x: .value("Date", String(price.date.suffix(2) )),
                         y: .value("buy", price.buy)
                     )
                     .foregroundStyle(.clear)
@@ -39,7 +39,7 @@ struct ChartView: View {
                 }
                 ForEach (service.price.reversed()) { price in
                     BarMark(
-                        x: .value("Date", String(price.date.suffix(2) ?? "")),
+                        x: .value("Date", String(price.date.suffix(2) )),
                         y: .value("sell", price.buyDiff)
                     )
                     .foregroundStyle(price.date.isWeekend() ? .gray : ( price.priceUp ? .red.opacity(0.7) : .green.opacity(0.7)))
@@ -52,7 +52,7 @@ struct ChartView: View {
                 ForEach  (service.price.reversed()) { price in
                     
                     LineMark(
-                        x: .value("Date", String(price.date.suffix(2) ?? "")),
+                        x: .value("Date", String(price.date.suffix(2) )),
                             y: .value("avg", price.deal)
                     )
                     .symbol(.circle)

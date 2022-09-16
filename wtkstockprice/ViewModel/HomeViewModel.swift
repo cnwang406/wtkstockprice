@@ -38,8 +38,8 @@ class HomeViewModel: ObservableObject {
     func load() {
         Task {
             
-            try await service.loadData()
-
+            try await service.loadData2()
+            service.parse()
             DispatchQueue.main.async {
                 let price = self.service.price.first?.deal ?? 0.0
                 UIApplication.shared.applicationIconBadgeNumber = lround(Double(price))

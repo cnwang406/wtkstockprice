@@ -66,19 +66,18 @@ struct HomeView: View {
             center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
                 
                 if error != nil {
-                    // Handle the error here.
+                    
                 }
-                
-                // Enable or disable features based on the authorization.
+
             }
             vm.load()
             let defaults = UserDefaults(suiteName: "group.com.cnwang.wtkstock")
             UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(1, forKey: "count")
             let bgn =  Int(vm.price.first?.buy ?? 0)
-            print ("bgn = \(bgn)")
+   
             UIApplication.shared.applicationIconBadgeNumber = Int(vm.price.first?.buy ?? 0)
             let count_: Int = defaults?.value(forKey: "count") as! Int
-            print ("i got count = \(count_)")
+            
             
 
             

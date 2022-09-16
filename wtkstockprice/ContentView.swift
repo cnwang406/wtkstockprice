@@ -33,7 +33,9 @@ struct ContentView: View {
             }
         }
         .onAppear{
-            
+            Task{
+                try await Service.shared.loadData()
+            }
         }
     }
 }
