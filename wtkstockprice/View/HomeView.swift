@@ -53,7 +53,12 @@ struct HomeView: View {
                 }
                 .padding()
                 ChartView()
+                    .frame(height: 350)
                 Spacer()
+                let last1970 = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastUpdated") ?? 0.0
+                Text("last update \(Date(timeIntervalSince1970: last1970).formatted())")
+                    .font(.caption)
+                    .opacity(0.8)
             }//: VStack
             
             if service.loading {
@@ -71,15 +76,13 @@ struct HomeView: View {
 
             }
             vm.load()
-            let defaults = UserDefaults(suiteName: "group.com.cnwang.wtkstock")
-            UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(1, forKey: "count")
+//            let defaults = UserDefaults(suiteName: "group.com.cnwang.wtkstock")
+
             let bgn =  Int(vm.price.first?.buy ?? 0)
    
-            UIApplication.shared.applicationIconBadgeNumber = Int(vm.price.first?.buy ?? 0)
-            let count_: Int = defaults?.value(forKey: "count") as! Int
+//            UIApplication.shared.applicationIconBadgeNumber = Int(vm.price.first?.buy ?? 0)
+            UIApplication.shared.applicationIconBadgeNumber = Int( UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastPrice") ?? 0.0)
             
-            
-
             
         }
         .navigationTitle("聯穎光電 股價")

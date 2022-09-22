@@ -8,14 +8,35 @@
 import SwiftUI
 import SwiftSoup
 import Foundation
+import WidgetKit
 enum NetworkError : Error {
     case badURL
     case noData
     case badData
 }
-
+public enum NotifyMeStatus:Int {
+    case noData = 0
+    case high = 1
+    case low = 2
+    case peace = 3
+}
 typealias Item = (text: String, html: String)
-
+struct Price: Codable,Hashable, Identifiable {
+    var id: UUID
+    var date: String
+    var buy: Double
+    var sell: Double
+    var buyAmount: Int
+    var sellAmount: Int
+    var buyDiff: Double {
+        (sell - buy)
+    }
+    var deal: Double{
+        (buy + sell) / 2
+    }
+    
+    var priceUp: Bool = true
+}
 
 class Service: ObservableObject {
     var price: [Price] = []
@@ -200,6 +221,14 @@ class Service: ObservableObject {
             }
             playNotificationHaptic(.success)
             print ("\(Date()) loadData done")
+            UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(Date().timeIntervalSince1970, forKey: "lastUpdated")
+            var count = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.integer(forKey: "count") ?? 0
+            UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(count + 1, forKey: "count")
+            
+            UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(checkAlarm().rawValue, forKey: "check")
+            
+            WidgetCenter.shared.reloadAllTimelines()
+            
             //            return .success(items)
         } catch _ {
             print ("oops...parse fail")
@@ -208,5 +237,26 @@ class Service: ObservableObject {
         } //: catch
         
         
+    }
+    
+    func checkAlarm() -> NotifyMeStatus {
+        let low = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "priceLow") ?? 100.0
+        let high = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "priceHigh") ?? 150.0
+        let price = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastPrice") ?? 0.0
+        if (UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.bool(forKey: "notifyMe") ?? true) {
+            if price == 0.0 {
+                return .noData
+            }
+            if price <= low {
+                print ("now \(price) <= \(low) , LOW ALARM !!!")
+                return .low
+            } else if price >= high {
+                print ("now \(price) >= \(high) , HIGH ALARM !!!")
+                return .high
+            }
+        }
+        
+        
+        return .peace
     }
 }

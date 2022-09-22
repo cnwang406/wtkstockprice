@@ -7,6 +7,7 @@
 
 import SwiftUI
 import BackgroundTasks
+import WidgetKit
 @main
 struct wtkstockpriceApp: App {
     
@@ -103,13 +104,15 @@ struct wtkstockpriceApp: App {
             print ("\(Date()) HAR start Task{}")
             print ("\(Date()) HAR start parse()")
             self.service.parse()
+            UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(self.service.checkAlarm(), forKey: "check")
+            
             print ("\(Date()) HAR start DispatchQueue")
             DispatchQueue.main.async {
-                let price = self.service.price.first?.deal ?? 0.0
+                let price = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastPrice") ?? 0.0
                 print ("Got price = \(price)")
                 UIApplication.shared.applicationIconBadgeNumber = lround(Double(price))
                 scheduleTestNotification()
-            }
+                            }
             print ("\(Date()) HAR DispatchQueue done")
         }
         
@@ -129,9 +132,30 @@ struct wtkstockpriceApp: App {
     
     func scheduleTestNotification() {
         print ("STN start")
+        let check = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.integer(forKey: "check") ?? 3
         let content = UNMutableNotificationContent()
-        let price = service.price.first?.deal ?? 0.0
-        content.title = "background triggered \(price)"
+        let price = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastPrice") ?? 0.0
+        let high = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "priceHigh") ?? 150.0
+        let low = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "priceLow") ?? 100.0
+        
+        
+        
+        
+        switch NotifyMeStatus(rawValue: check) {
+        case .noData:
+            content.title = "無資料"
+        case .high:
+            content.title = "高於設定價 \(price)>\(high) @\(Date().formatted())"
+        case .low:
+            content.title = "低於設定價 \(price)<\(low) @\(Date().formatted())"
+        case .peace:
+            content.title = "最新股價 \(price) @\(Date().formatted())"
+        default:
+            break
+        }
+        
+        
+//        content.title = "聯穎股價 updated \(price) @\(Date().formatted())"
         content.sound = .default
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
         let request = UNNotificationRequest(identifier: UUID().uuidString,

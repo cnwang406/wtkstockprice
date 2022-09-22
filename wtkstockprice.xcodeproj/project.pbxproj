@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27B2B7C428DBE05000707E4B /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B2B7C328DBE04F00707E4B /* WidgetKit.framework */; };
+		27B2B7C628DBE05000707E4B /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B2B7C528DBE05000707E4B /* SwiftUI.framework */; };
+		27B2B7C928DBE05000707E4B /* wtkstockpriceWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B2B7C828DBE05000707E4B /* wtkstockpriceWidget.swift */; };
+		27B2B7CC28DBE05000707E4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27B2B7CB28DBE05000707E4B /* Assets.xcassets */; };
+		27B2B7CE28DBE05000707E4B /* wtkstockpriceWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 27B2B7CA28DBE05000707E4B /* wtkstockpriceWidget.intentdefinition */; };
+		27B2B7CF28DBE05000707E4B /* wtkstockpriceWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 27B2B7CA28DBE05000707E4B /* wtkstockpriceWidget.intentdefinition */; };
+		27B2B7D228DBE05000707E4B /* wtkstockpriceWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 27B2B7C128DBE04F00707E4B /* wtkstockpriceWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		27B2B7D828DBE50A00707E4B /* PriceCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B2B7D728DBE50A00707E4B /* PriceCircleView.swift */; };
+		27B2B7D928DBFF3700707E4B /* PriceCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B2B7D728DBE50A00707E4B /* PriceCircleView.swift */; };
 		27BD5E5428D3F6B10048C2E5 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BD5E5328D3F6B10048C2E5 /* ChartView.swift */; };
 		27BD5E5628D447120048C2E5 /* util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BD5E5528D447120048C2E5 /* util.swift */; };
 		27CB3F6428D2D8E300BCE83E /* wtkstockpriceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB3F6328D2D8E300BCE83E /* wtkstockpriceApp.swift */; };
@@ -22,7 +31,41 @@
 		27D45F0B28D306210004213E /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D45F0A28D306210004213E /* SettingViewModel.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		27B2B7D028DBE05000707E4B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 27CB3F5828D2D8E300BCE83E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 27B2B7C028DBE04F00707E4B;
+			remoteInfo = wtkstockpriceWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		27B2B7D628DBE05000707E4B /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				27B2B7D228DBE05000707E4B /* wtkstockpriceWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		27B2B7C128DBE04F00707E4B /* wtkstockpriceWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = wtkstockpriceWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		27B2B7C328DBE04F00707E4B /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		27B2B7C528DBE05000707E4B /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		27B2B7C828DBE05000707E4B /* wtkstockpriceWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wtkstockpriceWidget.swift; sourceTree = "<group>"; };
+		27B2B7CA28DBE05000707E4B /* wtkstockpriceWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = wtkstockpriceWidget.intentdefinition; sourceTree = "<group>"; };
+		27B2B7CB28DBE05000707E4B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		27B2B7CD28DBE05000707E4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		27B2B7D728DBE50A00707E4B /* PriceCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCircleView.swift; sourceTree = "<group>"; };
+		27B2B7DA28DC129200707E4B /* wtkstockpriceWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = wtkstockpriceWidgetExtension.entitlements; sourceTree = "<group>"; };
+		27B2B7DB28DC146D00707E4B /* wtkstockprice.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = wtkstockprice.entitlements; sourceTree = "<group>"; };
 		27BD5E5328D3F6B10048C2E5 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		27BD5E5528D447120048C2E5 /* util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = util.swift; path = View/util.swift; sourceTree = "<group>"; };
 		27BD5E5728D449010048C2E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -40,6 +83,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		27B2B7BE28DBE04F00707E4B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27B2B7C628DBE05000707E4B /* SwiftUI.framework in Frameworks */,
+				27B2B7C428DBE05000707E4B /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		27CB3F5D28D2D8E300BCE83E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -51,9 +103,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		27B2B7BC28DBDFCC00707E4B /* wtkstockpriceWidget */ = {
+		27B2B7C228DBE04F00707E4B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				27B2B7C328DBE04F00707E4B /* WidgetKit.framework */,
+				27B2B7C528DBE05000707E4B /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		27B2B7C728DBE05000707E4B /* wtkstockpriceWidget */ = {
+			isa = PBXGroup;
+			children = (
+				27B2B7C828DBE05000707E4B /* wtkstockpriceWidget.swift */,
+				27B2B7D728DBE50A00707E4B /* PriceCircleView.swift */,
+				27B2B7CA28DBE05000707E4B /* wtkstockpriceWidget.intentdefinition */,
+				27B2B7CB28DBE05000707E4B /* Assets.xcassets */,
+				27B2B7CD28DBE05000707E4B /* Info.plist */,
 			);
 			path = wtkstockpriceWidget;
 			sourceTree = "<group>";
@@ -61,8 +127,10 @@
 		27CB3F5728D2D8E300BCE83E = {
 			isa = PBXGroup;
 			children = (
-				27B2B7BC28DBDFCC00707E4B /* wtkstockpriceWidget */,
+				27B2B7DA28DC129200707E4B /* wtkstockpriceWidgetExtension.entitlements */,
 				27CB3F6228D2D8E300BCE83E /* wtkstockprice */,
+				27B2B7C728DBE05000707E4B /* wtkstockpriceWidget */,
+				27B2B7C228DBE04F00707E4B /* Frameworks */,
 				27CB3F6128D2D8E300BCE83E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -71,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				27CB3F6028D2D8E300BCE83E /* wtkstockprice.app */,
+				27B2B7C128DBE04F00707E4B /* wtkstockpriceWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -78,11 +147,12 @@
 		27CB3F6228D2D8E300BCE83E /* wtkstockprice */ = {
 			isa = PBXGroup;
 			children = (
+				27B2B7DB28DC146D00707E4B /* wtkstockprice.entitlements */,
 				27BD5E5728D449010048C2E5 /* Info.plist */,
 				27CB3F6328D2D8E300BCE83E /* wtkstockpriceApp.swift */,
 				27CB3F6528D2D8E300BCE83E /* ContentView.swift */,
-				27CB3F7228D2D90D00BCE83E /* ViewModel */,
 				27CB3F7128D2D90500BCE83E /* View */,
+				27CB3F7228D2D90D00BCE83E /* ViewModel */,
 				27CB3F7728D2D97500BCE83E /* Service.swift */,
 				27BD5E5528D447120048C2E5 /* util.swift */,
 				27CB3F6728D2D8E400BCE83E /* Assets.xcassets */,
@@ -122,6 +192,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		27B2B7C028DBE04F00707E4B /* wtkstockpriceWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 27B2B7D328DBE05000707E4B /* Build configuration list for PBXNativeTarget "wtkstockpriceWidgetExtension" */;
+			buildPhases = (
+				27B2B7BD28DBE04F00707E4B /* Sources */,
+				27B2B7BE28DBE04F00707E4B /* Frameworks */,
+				27B2B7BF28DBE04F00707E4B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = wtkstockpriceWidgetExtension;
+			productName = wtkstockpriceWidgetExtension;
+			productReference = 27B2B7C128DBE04F00707E4B /* wtkstockpriceWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		27CB3F5F28D2D8E300BCE83E /* wtkstockprice */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 27CB3F6E28D2D8E400BCE83E /* Build configuration list for PBXNativeTarget "wtkstockprice" */;
@@ -129,10 +216,12 @@
 				27CB3F5C28D2D8E300BCE83E /* Sources */,
 				27CB3F5D28D2D8E300BCE83E /* Frameworks */,
 				27CB3F5E28D2D8E300BCE83E /* Resources */,
+				27B2B7D628DBE05000707E4B /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				27B2B7D128DBE05000707E4B /* PBXTargetDependency */,
 			);
 			name = wtkstockprice;
 			packageProductDependencies = (
@@ -152,6 +241,9 @@
 				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
+					27B2B7C028DBE04F00707E4B = {
+						CreatedOnToolsVersion = 14.0;
+					};
 					27CB3F5F28D2D8E300BCE83E = {
 						CreatedOnToolsVersion = 14.0;
 					};
@@ -174,11 +266,20 @@
 			projectRoot = "";
 			targets = (
 				27CB3F5F28D2D8E300BCE83E /* wtkstockprice */,
+				27B2B7C028DBE04F00707E4B /* wtkstockpriceWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		27B2B7BF28DBE04F00707E4B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27B2B7CC28DBE05000707E4B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		27CB3F5E28D2D8E300BCE83E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -191,13 +292,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		27B2B7BD28DBE04F00707E4B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27B2B7CE28DBE05000707E4B /* wtkstockpriceWidget.intentdefinition in Sources */,
+				27B2B7D928DBFF3700707E4B /* PriceCircleView.swift in Sources */,
+				27B2B7C928DBE05000707E4B /* wtkstockpriceWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		27CB3F5C28D2D8E300BCE83E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27B2B7CF28DBE05000707E4B /* wtkstockpriceWidget.intentdefinition in Sources */,
 				27CB3F7428D2D91E00BCE83E /* HomeView.swift in Sources */,
 				27D45F0928D2E6710004213E /* SettingTextCellView.swift in Sources */,
 				27CB3F6628D2D8E300BCE83E /* ContentView.swift in Sources */,
+				27B2B7D828DBE50A00707E4B /* PriceCircleView.swift in Sources */,
 				27BD5E5628D447120048C2E5 /* util.swift in Sources */,
 				27D45F0B28D306210004213E /* SettingViewModel.swift in Sources */,
 				27CB3F7828D2D97500BCE83E /* Service.swift in Sources */,
@@ -210,7 +323,71 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		27B2B7D128DBE05000707E4B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 27B2B7C028DBE04F00707E4B /* wtkstockpriceWidgetExtension */;
+			targetProxy = 27B2B7D028DBE05000707E4B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		27B2B7D428DBE05000707E4B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = wtkstockpriceWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L43KX6QVVV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = wtkstockpriceWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = wtkstockpriceWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cnwang.wtkstockprice.wtkstockpriceWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		27B2B7D528DBE05000707E4B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = wtkstockpriceWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L43KX6QVVV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = wtkstockpriceWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = wtkstockpriceWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cnwang.wtkstockprice.wtkstockpriceWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		27CB3F6C28D2D8E400BCE83E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -328,8 +505,10 @@
 		27CB3F6F28D2D8E400BCE83E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = wtkstockprice/wtkstockprice.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"wtkstockprice/Preview Content\"";
@@ -358,8 +537,10 @@
 		27CB3F7028D2D8E400BCE83E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = wtkstockprice/wtkstockprice.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"wtkstockprice/Preview Content\"";
@@ -388,6 +569,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		27B2B7D328DBE05000707E4B /* Build configuration list for PBXNativeTarget "wtkstockpriceWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27B2B7D428DBE05000707E4B /* Debug */,
+				27B2B7D528DBE05000707E4B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		27CB3F5B28D2D8E300BCE83E /* Build configuration list for PBXProject "wtkstockprice" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

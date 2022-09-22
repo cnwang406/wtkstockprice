@@ -12,6 +12,7 @@ struct SettingView: View {
     //MARK: - PROPERTIES
     @ObservedObject var vm = SettingViewModel()
     @State var l: [String] = []
+    @State var shareS: String = "0.0"
     //MARK: - VIEW
     var body: some View {
         
@@ -28,70 +29,115 @@ struct SettingView: View {
                         .padding()
                         .frame(width: 350)
                 }
-
-               
-                Slider(value: $vm.priceHigh, in: 2...350,step: 1.0) {
-                    Text("slider")
-                } minimumValueLabel: {
-                    Text("\(vm.priceLow, specifier: "%0.f")")
-                } maximumValueLabel: {
-                    Text("350")
-                } onEditingChanged: { changed in
-                    if changed {
-                        if vm.priceHigh <= vm.priceLow {
-                            vm.priceLow = vm.priceHigh - 1
+                
+                VStack(spacing:0){
+                    
+                    Slider(value: $vm.priceHigh, in: 2...350,step: 1.0) {
+                        Text("slider")
+                    } minimumValueLabel: {
+                        Text("\(vm.priceLow, specifier: "%0.f")")
+                    } maximumValueLabel: {
+                        Text("350")
+                    } onEditingChanged: { changed in
+                        if changed {
+                            if vm.priceHigh <= vm.priceLow {
+                                vm.priceLow = vm.priceHigh - 1
+                            }
+                            
                         }
-                        
                     }
-                }
-                .onChange(of: vm.priceHigh, perform: { newValue in
-                    vm.priceHigh = (newValue <= vm.priceLow ? vm.priceLow + 1 : newValue)
-                })
-                .opacity(vm.notifyMe ? 1.0 : 0.7)
-                .disabled(!vm.notifyMe)
-                .padding()
-                .frame(width:350)
-
-                Text("\(vm.priceLow, specifier: "%0.f") ~ \(vm.priceHigh, specifier: "%0.f")")
-                    .font(.title3)
+                    .onChange(of: vm.priceHigh, perform: { newValue in
+                        vm.priceHigh = (newValue <= vm.priceLow ? vm.priceLow + 1 : newValue)
+                    })
                     .opacity(vm.notifyMe ? 1.0 : 0.7)
-                    .frame(width:350)
                     .disabled(!vm.notifyMe)
-                Slider(value: $vm.priceLow, in: 1...349,step: 1.0) {
-                    Text("slider")
-                } minimumValueLabel: {
-                    Text("0")
-                } maximumValueLabel: {
-                    Text("\(vm.priceHigh, specifier: "%03.f")")
-                } onEditingChanged: { changed in
-                    if changed{
-                        
-                        if vm.priceLow >= vm.priceHigh {
-                            vm.priceLow = vm.priceHigh - 1
+                    .padding()
+                    .frame(width:350)
+                    
+                    Text("\(vm.priceLow, specifier: "%0.f") ~ \(vm.priceHigh, specifier: "%0.f")")
+                        .font(.title3)
+                        .opacity(vm.notifyMe ? 1.0 : 0.7)
+                        .frame(width:350)
+                        .disabled(!vm.notifyMe)
+                    
+                    Slider(value: $vm.priceLow, in: 1...349,step: 1.0) {
+                        Text("slider")
+                    } minimumValueLabel: {
+                        Text("0")
+                    } maximumValueLabel: {
+                        Text("\(vm.priceHigh, specifier: "%03.f")")
+                    } onEditingChanged: { changed in
+                        if changed{
+                            
+                            if vm.priceLow >= vm.priceHigh {
+                                vm.priceLow = vm.priceHigh - 1
+                            }
+                            
                         }
-                        
                     }
+                    .onChange(of: vm.priceLow, perform: { newValue in
+                        vm.priceLow = (newValue >= vm.priceHigh ? vm.priceHigh - 1 : newValue)
+                    })
+                    
+                    .disabled(!vm.notifyMe)
+                    .opacity(vm.notifyMe ? 1.0 : 0.7)
+                    .padding()
+                    .frame(width:350)
+                    
+                    .padding()
                 }
-                .onChange(of: vm.priceLow, perform: { newValue in
-                    vm.priceLow = (newValue >= vm.priceHigh ? vm.priceHigh - 1 : newValue)
-                })
                 
-                .disabled(!vm.notifyMe)
-                .opacity(vm.notifyMe ? 1.0 : 0.7)
-                .padding()
-                .frame(width:350)
-
-                
-                
-                .padding()
                 Spacer()
+//                Group{
+//                    
+//                    Text("price \(UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastPrice") ?? 0.0)")
+//                    Text("last Price2 \(UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastPrice2") ?? 0.0)")
+//                    Text("high \(UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "priceHigh") ?? 0.0)")
+//                    Text("low \(UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "priceLow") ?? 0.0)")
+//                    Text("share \(UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "share") ?? 0.0)")
+//                    
+//                    
+//                    Text("update times \(UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.integer(forKey: "count") ?? 0)")
+//                    
+//                    
+//                    
+//                }
+                VStack(spacing:0){
+                    
+                    
+                    SettingTextCellView(title: "張數(最多50)", result: $shareS)
+                        .onSubmit {
+                            vm.share = Double(shareS) ?? 0.0
+                            shareS = String(vm.share)
+                            
+                            
+                        }
+                    
+                    Slider(value: $vm.share, in: 0...50 ,step: 0.001) {
+                        Text("slider")
+                    } minimumValueLabel: {
+                        Text("")
+                    } maximumValueLabel: {
+                        Text("\(vm.share, specifier: "%3.3f")")
+                    } onEditingChanged: { changed in
+                        if changed{
+                            UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(vm.share, forKey: "share")
+                            
+                        }
+                    }
+                    .padding()
+                    .frame(width:350)
+                    
+                }
+                
+                Text("last update \(Date(timeIntervalSince1970: UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastUpdated") ?? 0.0).formatted())")
                 Text("Pending Tasks")
                 List(self.l,id:\.self) { ll in
                     Text(ll)
                 }
                 
                 
-                    
+                
                 
             }
             .navigationTitle("Setting")
@@ -104,8 +150,13 @@ struct SettingView: View {
                     print("prendingTask = \(rr)")
                     self.l.append(String(rr.description))
                 }
-    //            BGTaskScheduler.shared.cancelAllTaskRequests()
+                //            BGTaskScheduler.shared.cancelAllTaskRequests()
+                shareS = String(vm.share)
             }
+            
+        }
+        .onDisappear {
+            vm.commit()
         }
         
     }
