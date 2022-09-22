@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2766A6C028DCAA5300E043E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27CB3F6728D2D8E400BCE83E /* Assets.xcassets */; };
 		27B2B7C428DBE05000707E4B /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B2B7C328DBE04F00707E4B /* WidgetKit.framework */; };
 		27B2B7C628DBE05000707E4B /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B2B7C528DBE05000707E4B /* SwiftUI.framework */; };
 		27B2B7C928DBE05000707E4B /* wtkstockpriceWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B2B7C828DBE05000707E4B /* wtkstockpriceWidget.swift */; };
@@ -276,6 +277,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2766A6C028DCAA5300E043E1 /* Assets.xcassets in Resources */,
 				27B2B7CC28DBE05000707E4B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -508,6 +510,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = wtkstockprice/wtkstockprice.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -540,6 +543,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = wtkstockprice/wtkstockprice.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
