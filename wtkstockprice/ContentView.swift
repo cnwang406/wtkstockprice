@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+@MainActor
 struct ContentView: View {
     @State var selection: Int = 0
     var body: some View {

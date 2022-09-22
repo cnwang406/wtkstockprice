@@ -34,8 +34,40 @@ class Service: ObservableObject {
     
     // item founds
     
- 
+    
     func loadData() async throws{
+        print ("\(Date()) loaded")
+        let urlString = "\(urlHead)\(stock_)"
+        
+        if self.loading {
+            return
+        }
+        DispatchQueue.main.async {
+            self.loading = true
+        }
+        
+        guard let url = URL(string: "\(urlHead)\(stock_)") else {
+            playNotificationHaptic(.error)
+            fatalError("oops...\(urlString) not downloaded")
+        }
+        
+        let config = URLSessionConfiguration.background(withIdentifier: "wtkstockloading")
+        config.sessionSendsLaunchEvents = true
+        let session = URLSession(configuration: config)
+        let request = URLRequest(url: URL(string: urlString)!)
+       
+        self.html = try String.init(contentsOf: url)
+        
+        print ("\(Date()) finish loading from internet)")
+    }
+    
+    
+    
+    
+    func loadInBackgroundTask() async  {
+        print ("loadInBackgroundTask()")
+    
+
         print ("\(Date()) loaded")
         let urlString = "\(urlHead)\(stock_)"
 
@@ -46,42 +78,37 @@ class Service: ObservableObject {
         DispatchQueue.main.async {
             self.loading = true
         }
+
+        guard let url = URL(string: "\(urlHead)\(stock_)") else {
+            playNotificationHaptic(.error)
+            print ("\(Date()) oops...\(urlString) not downloaded")
+            fatalError("oops...\(urlString) not downloaded")
+        }
+
         let config = URLSessionConfiguration.background(withIdentifier: "wtkstockloading")
         config.sessionSendsLaunchEvents = true
         let session = URLSession(configuration: config)
         let request = URLRequest(url: URL(string: urlString)!)
-        
-        let response = try? await withTaskCancellationHandler {
+
+        let data =  await withTaskCancellationHandler {
             try? await session.data(for: request)
         } onCancel: {
+            print ("onCancel")
             let task = session.downloadTask(with: request)
             task.resume()
         }
-        
 
-        if let data = response {
+
+        if let data {
             self.html = String(data: data.0, encoding:  .utf8) ?? ""
             print ("\(Date()) download data ok \(data.0.count) bytes ")
         } else {
             print ("\(Date()) loadData fail!")
-            
+
         }
 
-        
-        
 
-//        guard let url = URL(string: "\(urlHead)\(stock_)") else {
-//            playNotificationHaptic(.error)
-//            print ("\(Date()) oops...\(urlString) not downloaded")
-//            fatalError("oops...\(urlString) not downloaded")
-//        }
-//
-//        print ("\(Date()) loading url from \(url)")
-//        self.html = try String.init(contentsOf: url) // get data from internet
-        
-        print ("\(Date()) finish loading from internet)")
     }
-    
     
     
     func loadData2() async throws{
@@ -95,13 +122,13 @@ class Service: ObservableObject {
         }
         
         let urlString = "\(urlHead)\(stock_)"
-
+        
         guard let url = URL(string: "\(urlHead)\(stock_)") else {
             playNotificationHaptic(.error)
             print ("\(Date()) oops...\(urlString) not downloaded")
             fatalError("oops...\(urlString) not downloaded")
         }
-
+        
         print ("\(Date()) loading url from \(url)")
         self.html = try String.init(contentsOf: url) // get data from internet
         DispatchQueue.main.async {
@@ -111,7 +138,7 @@ class Service: ObservableObject {
         
         print ("\(Date()) finish loading from internet)")
     }
-        
+    
     
     
     func parse(){
@@ -127,18 +154,20 @@ class Service: ObservableObject {
             self.price = []
         }
         do {
+            print ("do -1")
             //empty old items
             document = try SwiftSoup.parse(html)
             
             let elements: Elements = try document.select( self.cssTextString)
-            
+            print ("do -2")
             for element in elements {
                 let text = try element.text()
                 let html = try element.outerHtml()
                 items.append(Item(text: text, html: html))
             }
             self.priceMin = 1000.0
-            
+            print ("do -3")
+            @State var tapCount = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.array(forKey: "aPrices")
             for item in 0..<items.count {
                 let str = items[item].text
                 if str.contains("聯穎光電"){
@@ -148,15 +177,24 @@ class Service: ObservableObject {
                         priceMax = priceMax < price.sell ? price.sell : priceMax
                         priceMin = priceMin > price.buy ? price.buy  : priceMin
                         self.price.append(price)
+                        
                     }
                 }
             }
+            UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(self.price.first?.deal ?? 0.0, forKey: "lastPrice")
+            if self.price[1] != nil {
+                UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(self.price[1].deal, forKey: "lastPrice2")
+            } else {
+                UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(0.0, forKey: "lastPrice2")
+            }
+                
             
+            print ("do -4")
             for item in 0..<self.price.count - 1 {
                 self.price[item].priceUp = self.price[item].buy > self.price[item + 1] .buy
                 
             }
-            
+            print ("do -5")
             DispatchQueue.main.async {
                 self.loading = false
             }

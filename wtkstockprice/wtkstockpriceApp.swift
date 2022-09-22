@@ -12,7 +12,7 @@ struct wtkstockpriceApp: App {
     
     @Environment(\.scenePhase) private var phase
     @ObservedObject var service = Service.shared
-    
+   
     var body: some Scene {
         
         
@@ -20,25 +20,35 @@ struct wtkstockpriceApp: App {
             ContentView()
         }
         
-        // need to .backgroundTask before .OnChange. else compile fail !!!
-        .backgroundTask(.appRefresh("refreshData")) {
-            print ("\(Date()) BGT qpprefresh on go")
+        .backgroundTask(.appRefresh("com.cnwang.wtkstockprice.refreshData")) {Sendable in
+            print ("\n====================================\n\(Date()) BGT refreshData on go\n===============================\n")
+            //            await register()
+            
+            await scheduleTestNotification()
+            await handelAppRefresh()
             await scheduleAppRefresh()
             
         }
-        .backgroundTask(.urlSession("wtkstockloading")){
-            print ("\(Date()) BGT urlsession on go")
-        }
-        
         
         .onChange(of: phase) { newValue in
             switch newValue{
             case .background:
                 print ("backgound")
-                scheduleAppRefresh()
+                Task{
+//                    await scheduleTestNotification()
+                    await scheduleAppRefresh()
+                }
+                
+//                handelAppRefresh()
                 break
             case .active:
                 print ("active")
+                let t = BGTaskScheduler.shared.getPendingTaskRequests { r in
+                    print ("pending task count = \(r.count)")
+                    for rr in r {
+                        print("prendingTask = \(rr)")
+                    }
+                }
                 break
             case .inactive:
                 print ("..")
@@ -49,38 +59,79 @@ struct wtkstockpriceApp: App {
             }
         }
         
-
+        
     }
     
     
-    func scheduleAppRefresh(){
-        let req = BGAppRefreshTaskRequest(identifier: "refreshData")
+    func scheduleAppRefresh() async{
+//        await handelAppRefresh()
+        let req = BGAppRefreshTaskRequest(identifier: "com.cnwang.wtkstockprice.refreshData")
+        
         req.earliestBeginDate = Date().addingTimeInterval(90)
+//        req.earliestBeginDate = Calendar.current.date(bySetting: .minute, value: 2, of: Date())
+        
+        
         print ("\(Date()) scheduleAppRefreshed callback. next is \(req.earliestBeginDate)")
-        Task{
-            print ("\(Date()) SAR start Task{}")
-            try await self.service.loadData()
-            print ("\(Date()) SAR start parse()")
-            self.service.parse()
-            print ("\(Date()) SAR start DispatchQueue")
-            DispatchQueue.main.async {
-                let price = self.service.price.first?.deal ?? 0.0
-                UIApplication.shared.applicationIconBadgeNumber = lround(Double(price) / 2)
-            }
-            print ("\(Date()) SAR DispatchQueue done")
-        }
+        
         do {
             try BGTaskScheduler.shared.submit(req)
             print ("\(Date()) SAR scheduleAppRefreshed regiter again")
+            //e -l objc -- (void)[[BGTaskScheduler sharedScheduler] _simulateLaunchForTaskWithIdentifier:@"com.cnwang.wtkstockprice.refreshData"]
         } catch {
             print ("\(Date()) SAR Fail to register BGTaskScheduler")
         }
+        let t = BGTaskScheduler.shared.getPendingTaskRequests { r in
+            print ("pending task count = \(r.count)")
+            for rr in r {
+                print("prendingTask = \(rr)")
+            }
+//            BGTaskScheduler.shared.cancelAllTaskRequests()
+        }
+        
         print ("\(Date()) SAR scheduleAppRefresh done!")
-        scheduleTestNotification()
+        
     }
+    
+    //    func handelAppRefresh(task: BGAppRefreshTask){
+    func handelAppRefresh() async{
+        print ("\(Date()) into handelAppRefresh)")
+        
+//        await self.service.loadInBackgroundTask()
+        Task{
+            
+            try? await self.service.loadData2()
+            print ("\(Date()) HAR start Task{}")
+            print ("\(Date()) HAR start parse()")
+            self.service.parse()
+            print ("\(Date()) HAR start DispatchQueue")
+            DispatchQueue.main.async {
+                let price = self.service.price.first?.deal ?? 0.0
+                print ("Got price = \(price)")
+                UIApplication.shared.applicationIconBadgeNumber = lround(Double(price))
+                scheduleTestNotification()
+            }
+            print ("\(Date()) HAR DispatchQueue done")
+        }
+        
+        
+        
+        //        }
+        
+        
+        
+        //        scheduleTestNotification()
+    }
+    
+    
+    
+    
+    
+    
     func scheduleTestNotification() {
+        print ("STN start")
         let content = UNMutableNotificationContent()
-        content.title = "Background task has run"
+        let price = service.price.first?.deal ?? 0.0
+        content.title = "background triggered \(price)"
         content.sound = .default
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
         let request = UNNotificationRequest(identifier: UUID().uuidString,
@@ -88,5 +139,6 @@ struct wtkstockpriceApp: App {
                                             trigger: trigger)
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.add(request)
+        print ("STN finished")
     }
 }

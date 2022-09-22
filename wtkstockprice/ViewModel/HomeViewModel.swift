@@ -41,7 +41,8 @@ class HomeViewModel: ObservableObject {
             try await service.loadData2()
             service.parse()
             DispatchQueue.main.async {
-                let price = self.service.price.first?.deal ?? 0.0
+                let price = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastPrice") ?? 0.0
+                
                 UIApplication.shared.applicationIconBadgeNumber = lround(Double(price))
             }
         }

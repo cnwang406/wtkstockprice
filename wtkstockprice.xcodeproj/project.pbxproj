@@ -51,9 +51,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		27B2B7BC28DBDFCC00707E4B /* wtkstockpriceWidget */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = wtkstockpriceWidget;
+			sourceTree = "<group>";
+		};
 		27CB3F5728D2D8E300BCE83E = {
 			isa = PBXGroup;
 			children = (
+				27B2B7BC28DBDFCC00707E4B /* wtkstockpriceWidget */,
 				27CB3F6228D2D8E300BCE83E /* wtkstockprice */,
 				27CB3F6128D2D8E300BCE83E /* Products */,
 			);

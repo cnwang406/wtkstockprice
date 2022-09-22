@@ -6,15 +6,17 @@
 //
 
 import SwiftUI
+import BackgroundTasks
 
 struct SettingView: View {
     //MARK: - PROPERTIES
     @ObservedObject var vm = SettingViewModel()
-   
+    @State var l: [String] = []
     //MARK: - VIEW
     var body: some View {
         
-        NavigationView() {
+        NavigationView(){
+            
             VStack{
                 
                 SettingTextCellView(title: "股票名稱", result: $vm.stock)
@@ -83,8 +85,27 @@ struct SettingView: View {
                 
                 .padding()
                 Spacer()
+                Text("Pending Tasks")
+                List(self.l,id:\.self) { ll in
+                    Text(ll)
+                }
+                
+                
+                    
+                
             }
             .navigationTitle("Setting")
+        }
+        .onAppear {
+            let t = BGTaskScheduler.shared.getPendingTaskRequests { r in
+                print ("pending task count = \(r.count)")
+                self.l = []
+                for rr in r {
+                    print("prendingTask = \(rr)")
+                    self.l.append(String(rr.description))
+                }
+    //            BGTaskScheduler.shared.cancelAllTaskRequests()
+            }
         }
         
     }
