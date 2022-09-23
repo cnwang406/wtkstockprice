@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "2B916A06-D71E-465C-B94B-F2AD5E2245E8"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FA115BC4-C526-4640-AA22-D98337B841E0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "wtkstockprice/wtkstockpriceApp.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "FA115BC4-C526-4640-AA22-D98337B841E0 - ec9db55614ff2190"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "wtkstockprice.wtkstockpriceApp.body.getter : some"
+                  moduleName = "wtkstockprice"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cnwang/Documents/swifty/wtkstockprice/wtkstockprice/wtkstockpriceApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19"
+                  offsetFromSymbolStart = "1120">
+               </Location>
+               <Location
+                  uuid = "FA115BC4-C526-4640-AA22-D98337B841E0 - f9097b4e99513182"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; wtkstockprice.ContentView in wtkstockprice.wtkstockpriceApp.body.getter : some"
+                  moduleName = "wtkstockprice"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cnwang/Documents/swifty/wtkstockprice/wtkstockprice/wtkstockpriceApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "48">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D77E0AAE-D99B-4107-AC40-32344CFE1731"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "wtkstockprice/wtkstockpriceApp.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "scheduleAppRefresh()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C2EB82DC-1E5D-42D4-A440-6182FF1075AF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "wtkstockprice/wtkstockpriceApp.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "C2EB82DC-1E5D-42D4-A440-6182FF1075AF - cb3e95d6676151cf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #2 @Sendable (()) async -&gt; () in wtkstockprice.wtkstockpriceApp.body.getter : some"
+                  moduleName = "wtkstockprice"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cnwang/Documents/swifty/wtkstockprice/wtkstockprice/wtkstockpriceApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "448">
+               </Location>
+               <Location
+                  uuid = "C2EB82DC-1E5D-42D4-A440-6182FF1075AF - b7e01f8e0482bfca"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) suspend resume partial function for closure #2 @Sendable (()) async -&gt; () in wtkstockprice.wtkstockpriceApp.body.getter : some"
+                  moduleName = "wtkstockprice"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cnwang/Documents/swifty/wtkstockprice/wtkstockprice/wtkstockpriceApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "C2EB82DC-1E5D-42D4-A440-6182FF1075AF - 1caba961a223e5d1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #2 @Sendable (()) async -&gt; () in wtkstockprice.wtkstockpriceApp.body.getter : some"
+                  moduleName = "wtkstockprice"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cnwang/Documents/swifty/wtkstockprice/wtkstockprice/wtkstockpriceApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "63A4DD25-165F-403C-8C8A-39292FB83729"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "wtkstockprice/wtkstockpriceApp.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "scheduleAppRefresh()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "360D9BD2-7753-45EC-B342-904283C5FE01"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "wtkstockprice/wtkstockpriceApp.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "handelAppRefresh()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
