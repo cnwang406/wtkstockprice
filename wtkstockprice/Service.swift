@@ -39,7 +39,7 @@ struct Price: Codable,Hashable, Identifiable {
 }
 
 class Service: ObservableObject {
-    var price: [Price] = []
+    var prices: [Price] = []
     var priceMax:Double = 0.0
     var priceMin:Double = 0.0
     @Published var loading: Bool = false
@@ -55,43 +55,10 @@ class Service: ObservableObject {
     
     // item founds
     
+  
     
     func loadData() async throws{
         print ("\(Date()) loaded")
-        let urlString = "\(urlHead)\(stock_)"
-        
-        if self.loading {
-            return
-        }
-        DispatchQueue.main.async {
-            self.loading = true
-        }
-        
-        guard let url = URL(string: "\(urlHead)\(stock_)") else {
-            playNotificationHaptic(.error)
-            fatalError("oops...\(urlString) not downloaded")
-        }
-        
-        let config = URLSessionConfiguration.background(withIdentifier: "wtkstockloading")
-        config.sessionSendsLaunchEvents = true
-        let session = URLSession(configuration: config)
-        let request = URLRequest(url: URL(string: urlString)!)
-       
-        self.html = try String.init(contentsOf: url)
-        
-        print ("\(Date()) finish loading from internet)")
-    }
-    
-    
-    
-    
-    func loadInBackgroundTask() async  {
-        print ("loadInBackgroundTask()")
-    
-
-        print ("\(Date()) loaded")
-        let urlString = "\(urlHead)\(stock_)"
-
         if self.loading {
             print ("already going")
             return
@@ -99,48 +66,15 @@ class Service: ObservableObject {
         DispatchQueue.main.async {
             self.loading = true
         }
-
-        guard let url = URL(string: "\(urlHead)\(stock_)") else {
-            playNotificationHaptic(.error)
-            print ("\(Date()) oops...\(urlString) not downloaded")
-            fatalError("oops...\(urlString) not downloaded")
+        
+        do{
+            if let data = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.data(forKey: "prices") {
+                self.prices = try JSONDecoder().decode([Price].self, from: data)
+            }
+        } catch {
+            self.prices = []
         }
-
-        let config = URLSessionConfiguration.background(withIdentifier: "wtkstockloading")
-        config.sessionSendsLaunchEvents = true
-        let session = URLSession(configuration: config)
-        let request = URLRequest(url: URL(string: urlString)!)
-
-        let data =  await withTaskCancellationHandler {
-            try? await session.data(for: request)
-        } onCancel: {
-            print ("onCancel")
-            let task = session.downloadTask(with: request)
-            task.resume()
-        }
-
-
-        if let data {
-            self.html = String(data: data.0, encoding:  .utf8) ?? ""
-            print ("\(Date()) download data ok \(data.0.count) bytes ")
-        } else {
-            print ("\(Date()) loadData fail!")
-
-        }
-
-
-    }
-    
-    
-    func loadData2() async throws{
-        print ("\(Date()) loaded")
-        if self.loading {
-            print ("already going")
-            return
-        }
-        DispatchQueue.main.async {
-            self.loading = true
-        }
+        
         
         let urlString = "\(urlHead)\(stock_)"
         
@@ -154,7 +88,7 @@ class Service: ObservableObject {
         self.html = try String.init(contentsOf: url) // get data from internet
         DispatchQueue.main.async {
             self.loading = true
-            self.price = []
+            self.prices = []
         }
         
         print ("\(Date()) finish loading from internet)")
@@ -172,23 +106,20 @@ class Service: ObservableObject {
             return
         }
         DispatchQueue.main.async {
-            self.price = []
+            self.prices = []
         }
         do {
-            print ("do -1")
             //empty old items
             document = try SwiftSoup.parse(html)
             
             let elements: Elements = try document.select( self.cssTextString)
-            print ("do -2")
             for element in elements {
                 let text = try element.text()
                 let html = try element.outerHtml()
                 items.append(Item(text: text, html: html))
             }
             self.priceMin = 1000.0
-            print ("do -3")
-            @State var tapCount = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.array(forKey: "aPrices")
+//            @State var tapCount = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.array(forKey: "aPrices")
             for item in 0..<items.count {
                 let str = items[item].text
                 if str.contains("聯穎光電"){
@@ -197,25 +128,31 @@ class Service: ObservableObject {
                         let price = Price(id: UUID(), date: arr[0], buy: Double(arr[2]) ?? 0.0 , sell: Double(arr[3]) ?? 0.0, buyAmount: Int(arr[4]) ?? 0, sellAmount: Int(arr[5]) ?? 0)
                         priceMax = priceMax < price.sell ? price.sell : priceMax
                         priceMin = priceMin > price.buy ? price.buy  : priceMin
-                        self.price.append(price)
+                        self.prices.append(price)
                         
                     }
                 }
             }
-            UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(self.price.first?.deal ?? 0.0, forKey: "lastPrice")
-            if self.price[1] != nil {
-                UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(self.price[1].deal, forKey: "lastPrice2")
-            } else {
-                UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(0.0, forKey: "lastPrice2")
-            }
-                
             
-            print ("do -4")
-            for item in 0..<self.price.count - 1 {
-                self.price[item].priceUp = self.price[item].buy > self.price[item + 1] .buy
+            
+            for item in 0..<self.prices.count - 1 {
+                self.prices[item].priceUp = self.prices[item].buy > self.prices[item + 1] .buy
                 
             }
-            print ("do -5")
+            do{
+                let data = try JSONEncoder().encode(self.prices)
+                UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(data, forKey: "prices")
+                UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set((self.prices.first?.deal ?? 0.0), forKey: "lastPrice")
+                
+                UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set((self.prices[1] == nil ? 0.0 : self.prices[1].deal), forKey: "lastPrice2")
+                
+                
+            } catch {
+                UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set([], forKey: "prices")
+            }
+            
+            
+            
             DispatchQueue.main.async {
                 self.loading = false
             }

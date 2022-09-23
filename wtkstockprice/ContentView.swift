@@ -33,12 +33,12 @@ struct ContentView: View {
             }
         }
         .onAppear{
-            Task{
-                try await Service.shared.loadData()
-                try await Service.shared.parse()
-                try await Service.shared.checkAlarm()
-                
-            }
+//            Task{
+//                try await Service.shared.loadData2()
+//                try await Service.shared.parse()
+//                try await Service.shared.checkAlarm()
+//                
+//            }
         }
     }
 }

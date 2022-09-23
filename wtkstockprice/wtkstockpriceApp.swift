@@ -36,20 +36,12 @@ struct wtkstockpriceApp: App {
             case .background:
                 print ("backgound")
                 Task{
-//                    await scheduleTestNotification()
                     await scheduleAppRefresh()
                 }
-                
-//                handelAppRefresh()
+
                 break
             case .active:
                 print ("active")
-                let t = BGTaskScheduler.shared.getPendingTaskRequests { r in
-                    print ("pending task count = \(r.count)")
-                    for rr in r {
-                        print("prendingTask = \(rr)")
-                    }
-                }
                 break
             case .inactive:
                 print ("..")
@@ -59,20 +51,13 @@ struct wtkstockpriceApp: App {
                 
             }
         }
-        
-        
     }
     
     
     func scheduleAppRefresh() async{
-//        await handelAppRefresh()
+
         let req = BGAppRefreshTaskRequest(identifier: "com.cnwang.wtkstockprice.refreshData")
-        
         req.earliestBeginDate = Date().addingTimeInterval(90)
-//        req.earliestBeginDate = Calendar.current.date(bySetting: .minute, value: 2, of: Date())
-        
-        
-        print ("\(Date()) scheduleAppRefreshed callback. next is \(req.earliestBeginDate)")
         
         do {
             try BGTaskScheduler.shared.submit(req)
@@ -81,28 +66,15 @@ struct wtkstockpriceApp: App {
         } catch {
             print ("\(Date()) SAR Fail to register BGTaskScheduler")
         }
-        let t = BGTaskScheduler.shared.getPendingTaskRequests { r in
-            print ("pending task count = \(r.count)")
-            for rr in r {
-                print("prendingTask = \(rr)")
-            }
-//            BGTaskScheduler.shared.cancelAllTaskRequests()
-        }
         
         print ("\(Date()) SAR scheduleAppRefresh done!")
-        
     }
     
-    //    func handelAppRefresh(task: BGAppRefreshTask){
     func handelAppRefresh() async{
         print ("\(Date()) into handelAppRefresh)")
         
-//        await self.service.loadInBackgroundTask()
         Task{
-            
-            try? await self.service.loadData2()
-            print ("\(Date()) HAR start Task{}")
-            print ("\(Date()) HAR start parse()")
+            try? await self.service.loadData()
             self.service.parse()
             UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(self.service.checkAlarm(), forKey: "check")
             
@@ -115,19 +87,7 @@ struct wtkstockpriceApp: App {
                             }
             print ("\(Date()) HAR DispatchQueue done")
         }
-        
-        
-        
-        //        }
-        
-        
-        
-        //        scheduleTestNotification()
     }
-    
-    
-    
-    
     
     
     func scheduleTestNotification() {
@@ -137,8 +97,6 @@ struct wtkstockpriceApp: App {
         let price = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastPrice") ?? 0.0
         let high = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "priceHigh") ?? 150.0
         let low = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "priceLow") ?? 100.0
-        
-        
         
         
         switch NotifyMeStatus(rawValue: check) {

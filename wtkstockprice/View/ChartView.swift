@@ -28,7 +28,7 @@ struct ChartView: View {
             Chart{
                 
                 
-                ForEach (service.price.reversed()) { price in
+                ForEach (service.prices.reversed()) { price in
                     
                     BarMark(
                         x: .value("Date", String(price.date.suffix(2) )),
@@ -37,7 +37,7 @@ struct ChartView: View {
                     .foregroundStyle(.clear)
                     .symbol(.circle)
                 }
-                ForEach (service.price.reversed()) { price in
+                ForEach (service.prices.reversed()) { price in
                     BarMark(
                         x: .value("Date", String(price.date.suffix(2) )),
                         y: .value("sell", price.buyDiff)
@@ -49,7 +49,7 @@ struct ChartView: View {
 //                    lastDeal = price.deal
                 }
                 
-                ForEach  (service.price.reversed()) { price in
+                ForEach  (service.prices.reversed()) { price in
                     
                     LineMark(
                         x: .value("Date", String(price.date.suffix(2) )),
