@@ -21,11 +21,11 @@ struct wtkstockpriceApp: App {
             ContentView()
         }
         
-        .backgroundTask(.appRefresh("com.cnwang.wtkstockprice.refreshData")) {Sendable in
+        .backgroundTask(.appRefresh(backgroundTaskIdentifier)) {Sendable in
             print ("\n====================================\n\(Date()) BGT refreshData on go\n===============================\n")
             //            await register()
             
-            await scheduleTestNotification()
+            await scheduleNotification()
             await handelAppRefresh()
             await scheduleAppRefresh()
             
@@ -56,8 +56,8 @@ struct wtkstockpriceApp: App {
     
     func scheduleAppRefresh() async{
 
-        let req = BGAppRefreshTaskRequest(identifier: "com.cnwang.wtkstockprice.refreshData")
-        req.earliestBeginDate = Date().addingTimeInterval(90)
+        let req = BGAppRefreshTaskRequest(identifier: backgroundTaskIdentifier)
+        req.earliestBeginDate = Date().addingTimeInterval(30 * 60)  // every 30 min 
         
         do {
             try BGTaskScheduler.shared.submit(req)
@@ -76,27 +76,26 @@ struct wtkstockpriceApp: App {
         Task{
             try? await self.service.loadData()
             self.service.parse()
-            UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(self.service.checkAlarm(), forKey: "check")
+            UserDefaults(suiteName: groupIdentifier)?.set(self.service.checkAlarm(), forKey: "check")
             
             print ("\(Date()) HAR start DispatchQueue")
             DispatchQueue.main.async {
-                let price = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastPrice") ?? 0.0
-                print ("Got price = \(price)")
+                let price = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "lastPrice") ?? 0.0
                 UIApplication.shared.applicationIconBadgeNumber = lround(Double(price))
-                scheduleTestNotification()
+                scheduleNotification()
                             }
             print ("\(Date()) HAR DispatchQueue done")
         }
     }
     
     
-    func scheduleTestNotification() {
+    func scheduleNotification() {
         print ("STN start")
-        let check = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.integer(forKey: "check") ?? 3
+        let check = UserDefaults(suiteName: groupIdentifier)?.integer(forKey: "check") ?? 3
         let content = UNMutableNotificationContent()
-        let price = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastPrice") ?? 0.0
-        let high = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "priceHigh") ?? 150.0
-        let low = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "priceLow") ?? 100.0
+        let price = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "lastPrice") ?? 0.0
+        let high = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "priceHigh") ?? 150.0
+        let low = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "priceLow") ?? 100.0
         
         
         switch NotifyMeStatus(rawValue: check) {

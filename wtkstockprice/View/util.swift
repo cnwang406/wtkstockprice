@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 func playFeedbackHaptic(_ style: UIImpactFeedbackGenerator.FeedbackStyle) {
     let generator = UIImpactFeedbackGenerator(style: style)
     generator.impactOccurred()

@@ -90,14 +90,14 @@ struct SettingView: View {
                 Spacer()
 //                Group{
 //                    
-//                    Text("price \(UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastPrice") ?? 0.0)")
-//                    Text("last Price2 \(UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastPrice2") ?? 0.0)")
-//                    Text("high \(UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "priceHigh") ?? 0.0)")
-//                    Text("low \(UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "priceLow") ?? 0.0)")
-//                    Text("share \(UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "share") ?? 0.0)")
+//                    Text("price \(UserDefaults(suiteName: groupIdentifier)?.double(forKey: "lastPrice") ?? 0.0)")
+//                    Text("last Price2 \(UserDefaults(suiteName: groupIdentifier)?.double(forKey: "lastPrice2") ?? 0.0)")
+//                    Text("high \(UserDefaults(suiteName: groupIdentifier)?.double(forKey: "priceHigh") ?? 0.0)")
+//                    Text("low \(UserDefaults(suiteName: groupIdentifier)?.double(forKey: "priceLow") ?? 0.0)")
+//                    Text("share \(UserDefaults(suiteName: groupIdentifier)?.double(forKey: "share") ?? 0.0)")
 //                    
 //                    
-//                    Text("update times \(UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.integer(forKey: "count") ?? 0)")
+//                    Text("update times \(UserDefaults(suiteName: groupIdentifier)?.integer(forKey: "count") ?? 0)")
 //                    
 //                    
 //                    
@@ -121,7 +121,7 @@ struct SettingView: View {
                         Text("\(vm.share, specifier: "%3.3f")")
                     } onEditingChanged: { changed in
                         if changed{
-                            UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(vm.share, forKey: "share")
+                            UserDefaults(suiteName: groupIdentifier)?.set(vm.share, forKey: "share")
                             
                         }
                     }
@@ -130,7 +130,7 @@ struct SettingView: View {
                     
                 }
                 
-                Text("last update \(Date(timeIntervalSince1970: UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastUpdated") ?? 0.0).formatted())")
+                Text("last update \(Date(timeIntervalSince1970: UserDefaults(suiteName: groupIdentifier)?.double(forKey: "lastUpdated") ?? 0.0).formatted())")
                 Text("Pending Tasks")
                 List(self.l,id:\.self) { ll in
                     Text(ll)

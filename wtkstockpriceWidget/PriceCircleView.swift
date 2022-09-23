@@ -11,13 +11,13 @@ struct PriceCircleView: View {
     //MARK: - PROPERTIES
     @State var scale =  1.0
     @State var ratio: Double = 0.75
-    var lastPrice:Double = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastPrice") ?? 150.0
-    var lastPrice2:Double = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastPrice2") ?? 150.0
+    var lastPrice:Double = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "lastPrice") ?? 150.0
+    var lastPrice2:Double = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "lastPrice2") ?? 150.0
     var targetPrice: Double = 150.0
-    var share: Double =  UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "share") ?? 0.0
-    var check: Int = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.integer(forKey: "check") ?? 3
-    var low = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "priceLow") ?? 100.0
-    var high = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "priceHigh") ?? 150.0
+    var share: Double =  UserDefaults(suiteName: groupIdentifier)?.double(forKey: "share") ?? 0.0
+    var check: Int = UserDefaults(suiteName: groupIdentifier)?.integer(forKey: "check") ?? 3
+    var low = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "priceLow") ?? 100.0
+    var high = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "priceHigh") ?? 150.0
     //MARK: - VIEW
     var body: some View {
         GeometryReader{ geometry in

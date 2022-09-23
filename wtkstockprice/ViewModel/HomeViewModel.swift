@@ -38,7 +38,7 @@ class HomeViewModel: ObservableObject {
     
     func load() {
 //        do{
-//            if let data = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.data(forKey: "prices") {
+//            if let data = UserDefaults(suiteName: groupIdentifier)?.data(forKey: "prices") {
 //                self.prices = try JSONDecoder().decode([Price].self, from: data)
 //            }
 //        } catch {
@@ -50,7 +50,7 @@ class HomeViewModel: ObservableObject {
             try await service.loadData()
             service.parse()
             DispatchQueue.main.async {
-                let price = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastPrice") ?? 0.0
+                let price = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "lastPrice") ?? 0.0
                 
                 UIApplication.shared.applicationIconBadgeNumber = lround(Double(price))
             }
@@ -65,14 +65,14 @@ class HomeViewModel: ObservableObject {
         print ("leaving homeview")
 //        do{
 //            let data = try JSONEncoder().encode(self.price)
-//            UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(data, forKey: "prices")
-//            UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set((self.price.first?.deal ?? 0.0), forKey: "lastPrice")
+//            UserDefaults(suiteName: groupIdentifier)?.set(data, forKey: "prices")
+//            UserDefaults(suiteName: groupIdentifier)?.set((self.price.first?.deal ?? 0.0), forKey: "lastPrice")
 //
-//            UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set((self.price[1] == nil ? 0.0 : self.price[1].deal), forKey: "lastPrice2")
+//            UserDefaults(suiteName: groupIdentifier)?.set((self.price[1] == nil ? 0.0 : self.price[1].deal), forKey: "lastPrice2")
 //
 //
 //        } catch {
-//            UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set([], forKey: "prices")
+//            UserDefaults(suiteName: groupIdentifier)?.set([], forKey: "prices")
 //        }
         
     }

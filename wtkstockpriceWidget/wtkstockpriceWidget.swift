@@ -43,9 +43,9 @@ struct SimpleEntry: TimelineEntry {
 
 struct wtkstockpriceWidgetEntryView : View {
     var entry: Provider.Entry
-    var lastPrice:Double = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastPrice") ?? 150.0
-    var lastPrice2:Double = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastPrice2") ?? 150.0
-    var lastUpdate1970 =  UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastUpdated") ?? 0.0
+    var lastPrice:Double = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "lastPrice") ?? 150.0
+    var lastPrice2:Double = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "lastPrice2") ?? 150.0
+    var lastUpdate1970 =  UserDefaults(suiteName: groupIdentifier)?.double(forKey: "lastUpdated") ?? 0.0
     var body: some View {
         
         RoundedRectangle(cornerRadius: 20)
@@ -75,10 +75,10 @@ struct wtkstockpriceWidgetEntryView : View {
                         
     }
     func checkAlarm() -> Color {
-        let low = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "priceLow") ?? 100.0
-        let high = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "priceHigh") ?? 150.0
-        let price = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastPrice") ?? 0.0
-        if (UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.bool(forKey: "notifyMe") ?? true) {
+        let low = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "priceLow") ?? 100.0
+        let high = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "priceHigh") ?? 150.0
+        let price = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "lastPrice") ?? 0.0
+        if (UserDefaults(suiteName: groupIdentifier)?.bool(forKey: "notifyMe") ?? true) {
             if price == 0.0 {
                 return .gray
             }

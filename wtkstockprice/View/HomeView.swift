@@ -56,14 +56,14 @@ struct HomeView: View {
                     ChartView()
                         .frame(height: 350)
                     Spacer()
-                    let last1970 = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastUpdated") ?? 0.0
+                    let last1970 = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "lastUpdated") ?? 0.0
                     Text("last update \(Date(timeIntervalSince1970: last1970).formatted())")
                         .font(.caption)
                         .opacity(0.8)
                 }//: VStack
                 
                 if service.loading {
-                    ProgressView()
+                    ProgressView()          
                         .scaleEffect(3.0)
                 }
             }//:ZStack

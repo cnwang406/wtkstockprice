@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftSoup
 import Foundation
 import WidgetKit
+
 enum NetworkError : Error {
     case badURL
     case noData
@@ -68,7 +69,7 @@ class Service: ObservableObject {
         }
         
         do{
-            if let data = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.data(forKey: "prices") {
+            if let data = UserDefaults(suiteName: groupIdentifier)?.data(forKey: "prices") {
                 self.prices = try JSONDecoder().decode([Price].self, from: data)
             }
         } catch {
@@ -119,7 +120,7 @@ class Service: ObservableObject {
                 items.append(Item(text: text, html: html))
             }
             self.priceMin = 1000.0
-//            @State var tapCount = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.array(forKey: "aPrices")
+//            @State var tapCount = UserDefaults(suiteName: groupIdentifier)?.array(forKey: "aPrices")
             for item in 0..<items.count {
                 let str = items[item].text
                 if str.contains("聯穎光電"){
@@ -141,14 +142,14 @@ class Service: ObservableObject {
             }
             do{
                 let data = try JSONEncoder().encode(self.prices)
-                UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(data, forKey: "prices")
-                UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set((self.prices.first?.deal ?? 0.0), forKey: "lastPrice")
+                UserDefaults(suiteName: groupIdentifier)?.set(data, forKey: "prices")
+                UserDefaults(suiteName: groupIdentifier)?.set((self.prices.first?.deal ?? 0.0), forKey: "lastPrice")
                 
-                UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set((self.prices[1] == nil ? 0.0 : self.prices[1].deal), forKey: "lastPrice2")
+                UserDefaults(suiteName: groupIdentifier)?.set((self.prices[1] == nil ? 0.0 : self.prices[1].deal), forKey: "lastPrice2")
                 
                 
             } catch {
-                UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set([], forKey: "prices")
+                UserDefaults(suiteName: groupIdentifier)?.set([], forKey: "prices")
             }
             
             
@@ -158,11 +159,11 @@ class Service: ObservableObject {
             }
             playNotificationHaptic(.success)
             print ("\(Date()) loadData done")
-            UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(Date().timeIntervalSince1970, forKey: "lastUpdated")
-            var count = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.integer(forKey: "count") ?? 0
-            UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(count + 1, forKey: "count")
+            UserDefaults(suiteName: groupIdentifier)?.set(Date().timeIntervalSince1970, forKey: "lastUpdated")
+            var count = UserDefaults(suiteName: groupIdentifier)?.integer(forKey: "count") ?? 0
+            UserDefaults(suiteName: groupIdentifier)?.set(count + 1, forKey: "count")
             
-            UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(checkAlarm().rawValue, forKey: "check")
+            UserDefaults(suiteName: groupIdentifier)?.set(checkAlarm().rawValue, forKey: "check")
             
             WidgetCenter.shared.reloadAllTimelines()
             
@@ -177,10 +178,10 @@ class Service: ObservableObject {
     }
     
     func checkAlarm() -> NotifyMeStatus {
-        let low = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "priceLow") ?? 100.0
-        let high = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "priceHigh") ?? 150.0
-        let price = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "lastPrice") ?? 0.0
-        if (UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.bool(forKey: "notifyMe") ?? true) {
+        let low = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "priceLow") ?? 100.0
+        let high = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "priceHigh") ?? 150.0
+        let price = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "lastPrice") ?? 0.0
+        if (UserDefaults(suiteName: groupIdentifier)?.bool(forKey: "notifyMe") ?? true) {
             if price == 0.0 {
                 return .noData
             }

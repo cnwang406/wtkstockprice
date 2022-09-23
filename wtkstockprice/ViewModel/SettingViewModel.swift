@@ -21,15 +21,15 @@ class SettingViewModel: ObservableObject {
     
     
     init(){
-        self.share = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "share") ?? 0.0
-        self.priceHigh = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "priceHigh") ?? 150.0
-        self.priceLow = UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.double(forKey: "priceLow") ?? 100.0
+        self.share = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "share") ?? 0.0
+        self.priceHigh = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "priceHigh") ?? 150.0
+        self.priceLow = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "priceLow") ?? 100.0
     }
     
     func commit(){
-        UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(share, forKey: "share")
-        UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(priceHigh, forKey: "priceHigh")
-        UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(priceLow, forKey: "priceLow")
-        UserDefaults(suiteName: "group.com.cnwang.wtkstock")?.set(notifyMe , forKey: "notifyMe")
+        UserDefaults(suiteName: groupIdentifier)?.set(share, forKey: "share")
+        UserDefaults(suiteName: groupIdentifier)?.set(priceHigh, forKey: "priceHigh")
+        UserDefaults(suiteName: groupIdentifier)?.set(priceLow, forKey: "priceLow")
+        UserDefaults(suiteName: groupIdentifier)?.set(notifyMe , forKey: "notifyMe")
     }
 }
