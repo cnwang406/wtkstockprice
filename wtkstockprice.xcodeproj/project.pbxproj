@@ -11,6 +11,7 @@
 		278D9F3A28DD91F900795554 /* util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BD5E5528D447120048C2E5 /* util.swift */; };
 		278D9F3C28DD923900795554 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278D9F3B28DD923900795554 /* Constant.swift */; };
 		278D9F3D28DD927C00795554 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278D9F3B28DD923900795554 /* Constant.swift */; };
+		278D9F3F28DDBEF100795554 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278D9F3E28DDBEF100795554 /* UIApplication+Extensions.swift */; };
 		27B2B7C428DBE05000707E4B /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B2B7C328DBE04F00707E4B /* WidgetKit.framework */; };
 		27B2B7C628DBE05000707E4B /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B2B7C528DBE05000707E4B /* SwiftUI.framework */; };
 		27B2B7C928DBE05000707E4B /* wtkstockpriceWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B2B7C828DBE05000707E4B /* wtkstockpriceWidget.swift */; };
@@ -61,6 +62,7 @@
 
 /* Begin PBXFileReference section */
 		278D9F3B28DD923900795554 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		278D9F3E28DDBEF100795554 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		27B2B7C128DBE04F00707E4B /* wtkstockpriceWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = wtkstockpriceWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		27B2B7C328DBE04F00707E4B /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		27B2B7C528DBE05000707E4B /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -163,6 +165,7 @@
 				27CB3F6728D2D8E400BCE83E /* Assets.xcassets */,
 				27CB3F6928D2D8E400BCE83E /* Preview Content */,
 				278D9F3B28DD923900795554 /* Constant.swift */,
+				278D9F3E28DDBEF100795554 /* UIApplication+Extensions.swift */,
 			);
 			path = wtkstockprice;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				278D9F3F28DDBEF100795554 /* UIApplication+Extensions.swift in Sources */,
 				27B2B7CF28DBE05000707E4B /* wtkstockpriceWidget.intentdefinition in Sources */,
 				27CB3F7428D2D91E00BCE83E /* HomeView.swift in Sources */,
 				27D45F0928D2E6710004213E /* SettingTextCellView.swift in Sources */,

@@ -131,10 +131,9 @@ struct SettingView: View {
                 }
                 
                 Text("last update \(Date(timeIntervalSince1970: UserDefaults(suiteName: groupIdentifier)?.double(forKey: "lastUpdated") ?? 0.0).formatted())")
-                Text("Pending Tasks")
-                List(self.l,id:\.self) { ll in
-                    Text(ll)
-                }
+                Spacer()
+                Text("by cnwang \(UIApplication.appVersion!) build \(UIApplication.appBuildVersion!)")
+                    .font(.footnote)
                 
                 
                 
@@ -143,16 +142,8 @@ struct SettingView: View {
             .navigationTitle("Setting")
         }
         .onAppear {
-            let t = BGTaskScheduler.shared.getPendingTaskRequests { r in
-                print ("pending task count = \(r.count)")
-                self.l = []
-                for rr in r {
-                    print("prendingTask = \(rr)")
-                    self.l.append(String(rr.description))
-                }
-                //            BGTaskScheduler.shared.cancelAllTaskRequests()
-                shareS = String(vm.share)
-            }
+            
+            shareS = String(vm.share)
             
         }
         .onDisappear {
