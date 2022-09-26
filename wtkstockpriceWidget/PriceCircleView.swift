@@ -30,7 +30,7 @@ struct PriceCircleView: View {
                     if lastPrice * lastPrice2 != 0.0 {
                         
                         Text("\(((lastPrice - lastPrice2) / lastPrice2) * 100, specifier: "%2.1f")%")
-                            .foregroundColor(lastPrice > lastPrice2 ? .red : .green)
+                            .foregroundColor(lastPrice >= lastPrice2 ? .red : .green)
                     } else {
                         Text("-- %")
                             .opacity(0.5)

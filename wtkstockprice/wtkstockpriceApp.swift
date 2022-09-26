@@ -94,10 +94,13 @@ struct wtkstockpriceApp: App {
         let check = UserDefaults(suiteName: groupIdentifier)?.integer(forKey: "check") ?? 3
         let content = UNMutableNotificationContent()
         let price = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "lastPrice") ?? 0.0
+        let price2 = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "lastPrice2") ?? 0.0
         let high = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "priceHigh") ?? 150.0
         let low = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "priceLow") ?? 100.0
         
-        
+        if price == price2 {
+            return  // no change. no bother.
+        }
         switch NotifyMeStatus(rawValue: check) {
         case .noData:
             content.title = "無資料"
