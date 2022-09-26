@@ -13,7 +13,7 @@ struct wtkstockpriceApp: App {
     
     @Environment(\.scenePhase) private var phase
     @ObservedObject var service = Service.shared
-   
+    
     var body: some Scene {
         
         
@@ -38,7 +38,7 @@ struct wtkstockpriceApp: App {
                 Task{
                     await scheduleAppRefresh()
                 }
-
+                
                 break
             case .active:
                 print ("active")
@@ -55,9 +55,9 @@ struct wtkstockpriceApp: App {
     
     
     func scheduleAppRefresh() async{
-
+        
         let req = BGAppRefreshTaskRequest(identifier: backgroundTaskIdentifier)
-        req.earliestBeginDate = Date().addingTimeInterval(30 * 60)  // every 30 min 
+        req.earliestBeginDate = Date().addingTimeInterval(30 * 60)  // every 30 min
         
         do {
             try BGTaskScheduler.shared.submit(req)
@@ -67,30 +67,24 @@ struct wtkstockpriceApp: App {
             print ("\(Date()) SAR Fail to register BGTaskScheduler")
         }
         
-        print ("\(Date()) SAR scheduleAppRefresh done!")
     }
     
     func handelAppRefresh() async{
-        print ("\(Date()) into handelAppRefresh)")
-        
         Task{
             try? await self.service.loadData()
             self.service.parse()
             UserDefaults(suiteName: groupIdentifier)?.set(self.service.checkAlarm(), forKey: "check")
             
-            print ("\(Date()) HAR start DispatchQueue")
             DispatchQueue.main.async {
                 let price = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "lastPrice") ?? 0.0
                 UIApplication.shared.applicationIconBadgeNumber = lround(Double(price))
                 scheduleNotification()
-                            }
-            print ("\(Date()) HAR DispatchQueue done")
+            }
         }
     }
     
     
     func scheduleNotification() {
-        print ("STN start")
         let check = UserDefaults(suiteName: groupIdentifier)?.integer(forKey: "check") ?? 3
         let content = UNMutableNotificationContent()
         let price = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "lastPrice") ?? 0.0
@@ -115,7 +109,6 @@ struct wtkstockpriceApp: App {
         }
         
         
-//        content.title = "聯穎股價 updated \(price) @\(Date().formatted())"
         content.sound = .default
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
         let request = UNNotificationRequest(identifier: UUID().uuidString,
@@ -123,6 +116,6 @@ struct wtkstockpriceApp: App {
                                             trigger: trigger)
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.add(request)
-        print ("STN finished")
+        
     }
 }

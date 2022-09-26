@@ -48,15 +48,18 @@ class Service: ObservableObject {
     
     var urlHead: String = "https://www.goodstock.com.tw/stock_quote.php?stockname="
     var stock_: String = "%E8%81%AF%E7%A9%8E%E5%85%89%E9%9B%BB"
-    var stock: String = "聯穎光電"
-    var lll: String = "https%3A%2F%2Fwww.goodstock.com.tw%2Fstock_quote.php%3Fstockname%3D"
+    // https://www.goodstock.com.tw/stock_quote.php?stockname=%E8%81%AF%E7%A9%8E%E5%85%89%E9%9B%BB
+
+    var stock: String = UserDefaults(suiteName: groupIdentifier)?.string(forKey: "stock") ?? "聯穎光電"
+    //    var lll: String = "https%3A%2F%2Fwww.goodstock.com.tw%2Fstock_quote.php%3Fstockname%3D"
     var cssTextString : String = "tr"
     
     var html: String = ""
     
+    var validStock: Bool = true
     // item founds
     
-  
+    
     
     func loadData() async throws{
         print ("\(Date()) loaded")
@@ -76,10 +79,12 @@ class Service: ObservableObject {
             self.prices = []
         }
         
+        stock = UserDefaults(suiteName: groupIdentifier)?.string(forKey: "stock") ?? "聯穎光電"
+   
         
-        let urlString = "\(urlHead)\(stock_)"
+        let urlString = "\(urlHead)\((stock.addingPercentEncoding(withAllowedCharacters:.urlQueryAllowed) ?? ""))"
         
-        guard let url = URL(string: "\(urlHead)\(stock_)") else {
+        guard let url = URL(string: urlString) else {
             playNotificationHaptic(.error)
             print ("\(Date()) oops...\(urlString) not downloaded")
             fatalError("oops...\(urlString) not downloaded")
@@ -107,6 +112,7 @@ class Service: ObservableObject {
             return
         }
         DispatchQueue.main.async {
+            
             self.prices = []
         }
         do {
@@ -120,22 +126,46 @@ class Service: ObservableObject {
                 items.append(Item(text: text, html: html))
             }
             self.priceMin = 1000.0
-//            @State var tapCount = UserDefaults(suiteName: groupIdentifier)?.array(forKey: "aPrices")
+            //            @State var tapCount = UserDefaults(suiteName: groupIdentifier)?.array(forKey: "aPrices")
             for item in 0..<items.count {
                 let str = items[item].text
-                if str.contains("聯穎光電"){
+                if str.contains(stock){
                     let arr = str.components(separatedBy: " ")
                     if arr.count == 6 {
                         let price = Price(id: UUID(), date: arr[0], buy: Double(arr[2]) ?? 0.0 , sell: Double(arr[3]) ?? 0.0, buyAmount: Int(arr[4]) ?? 0, sellAmount: Int(arr[5]) ?? 0)
-                        priceMax = priceMax < price.sell ? price.sell : priceMax
-                        priceMin = priceMin > price.buy ? price.buy  : priceMin
+                        self.priceMax = self.priceMax < price.sell ? price.sell : priceMax
+                        self.priceMin = self.priceMin > price.buy ? price.buy  : priceMin
                         self.prices.append(price)
                         
                     }
                 }
             }
+            if self.priceMax < self.priceMin {
+                self.priceMin = 0.0
+                self.priceMax = 100.0
+            }
             
-            
+            if self.prices.count == 0 {  // not found !!!
+                
+                print ("\n\nInvalid Stock !!!!!!\n\n")
+                self.prices = Array(repeating: Price(id: UUID(), date: Date().formatted(), buy: 0.0, sell: 0.0, buyAmount: 0, sellAmount: 0), count: 20)
+                priceMax = 100.0
+                priceMin = 0.0
+                let data = try JSONEncoder().encode(self.prices)
+                UserDefaults(suiteName: groupIdentifier)?.set(data, forKey: "prices")
+                UserDefaults(suiteName: groupIdentifier)?.set(0.0, forKey: "lastPrice")
+                UserDefaults(suiteName: groupIdentifier)?.set(0.0, forKey: "lastPrice2")
+                UserDefaults(suiteName: groupIdentifier)?.set(1.0, forKey: "priceHigh")
+                UserDefaults(suiteName: groupIdentifier)?.set(0.0, forKey: "priceLow")
+                UserDefaults(suiteName: groupIdentifier)?.set(false, forKey: "validStock")
+                DispatchQueue.main.async {
+                    self.validStock = false
+                    self.loading = false
+                    playNotificationHaptic(.error)
+                }
+                return 
+                
+            }
             for item in 0..<self.prices.count - 1 {
                 self.prices[item].priceUp = self.prices[item].buy > self.prices[item + 1] .buy
                 
@@ -144,8 +174,8 @@ class Service: ObservableObject {
                 let data = try JSONEncoder().encode(self.prices)
                 UserDefaults(suiteName: groupIdentifier)?.set(data, forKey: "prices")
                 UserDefaults(suiteName: groupIdentifier)?.set((self.prices.first?.deal ?? 0.0), forKey: "lastPrice")
-                
                 UserDefaults(suiteName: groupIdentifier)?.set((self.prices[1] == nil ? 0.0 : self.prices[1].deal), forKey: "lastPrice2")
+                
                 
                 
             } catch {
@@ -156,6 +186,8 @@ class Service: ObservableObject {
             
             DispatchQueue.main.async {
                 self.loading = false
+                self.validStock = true
+                UserDefaults(suiteName: groupIdentifier)?.set(self.validStock, forKey: "validStock")
             }
             playNotificationHaptic(.success)
             print ("\(Date()) loadData done")
@@ -197,4 +229,5 @@ class Service: ObservableObject {
         
         return .peace
     }
+    
 }

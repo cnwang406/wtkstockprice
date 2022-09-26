@@ -12,10 +12,10 @@ struct HomeView: View {
     @ObservedObject var vm = HomeViewModel()
     @ObservedObject var service = Service.shared
     
-    
+
     
     let columns = [
-        GridItem(.flexible(minimum: 100.0), alignment: .topLeading),
+        GridItem(.flexible(minimum: 80.0), alignment: .topLeading),
         GridItem(.flexible(), alignment: .trailing),
         GridItem(.flexible(), alignment: .trailing),
         GridItem(.flexible(), alignment: .trailing),
@@ -25,49 +25,59 @@ struct HomeView: View {
     //MARK: - VIEW
     var body: some View {
         NavigationView {
-            
-            ZStack{
-                VStack{
-                    
-                    LazyVGrid(columns: columns, alignment: .center, spacing: 5) {
-                        Group{
-                            Text("Date")
-                            Text("buy")
-                            Text("sell")
-                            Text("buy Amount")
-                            Text("sell Amount")
-                        }
-                        .font(.headline)
+            if service.validStock {
+                ZStack{
+                    VStack{
                         
-                        ForEach(service.prices){ price in
-                            Text("\(price.date)")
-                            Text("$ \(price.buy, specifier: "%.2f")")
-                            Text("$ \(price.sell, specifier: "%.2f")")
-                            Text("\(price.buyAmount)")
-                            Text("\(price.sellAmount)")
+                        LazyVGrid(columns: columns, alignment: .center, spacing: 5) {
+                            Group{
+                                Text("Date")
+                                Text("buy")
+                                Text("sell")
+                                Text("buy Amt")
+                                Text("sell Amt")
+                            }
+                            .font(.system(size: 14.0))
+                            .fontWeight(.semibold)
+                            
+                            ForEach(service.prices){ price in
+                                
+                                Text("\(price.date)")
+                                Text("$ \(price.buy, specifier: "%.2f")")
+                                Text("$ \(price.sell, specifier: "%.2f")")
+                                Text("\(price.buyAmount)")
+                                Text("\(price.sellAmount)")
+                                
+                            }
+                            .redacted(reason: (service.loading || !service.validStock) ? .placeholder : [])
+                            .font(.system(size: 12))
+                            
                             
                         }
-                        .redacted(reason: service.loading ? .placeholder : [])
-                        .font(.system(size: 12.0))
-                        
-                        
+                        .padding()
+                        ChartView()
+                            .redacted(reason: (service.loading || !service.validStock) ? .placeholder : [])
+                                                .frame(height: 230)
+                        Spacer()
+                        let last1970 = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "lastUpdated") ?? 0.0
+                        Text("last update \(Date(timeIntervalSince1970: last1970).formatted())")
+                            .font(.caption)
+                            .opacity(0.8)
+                    }//: VStack
+                    
+                    if service.loading {
+                        ProgressView()
+                            .scaleEffect(3.0)
                     }
-                    .padding()
-                    ChartView()
-                        .frame(height: 350)
-                    Spacer()
-                    let last1970 = UserDefaults(suiteName: groupIdentifier)?.double(forKey: "lastUpdated") ?? 0.0
-                    Text("last update \(Date(timeIntervalSince1970: last1970).formatted())")
-                        .font(.caption)
-                        .opacity(0.8)
-                }//: VStack
+
+                    
+                }//:ZStack
+                .navigationTitle("\(vm.service.stock)")
                 
-                if service.loading {
-                    ProgressView()          
-                        .scaleEffect(3.0)
-                }
-            }//:ZStack
-            .navigationTitle("聯穎光電 股價")
+            } else {
+                InvalidStockView()
+                
+            }//: if service.validStock
         }
         .onAppear{
             let center = UNUserNotificationCenter.current()

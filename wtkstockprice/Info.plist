@@ -7,6 +7,10 @@
 		<string>com.cnwang.wtkstockprice.refreshData</string>
 		<string>wtkstockloading</string>
 	</array>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>ConfigurationIntent</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

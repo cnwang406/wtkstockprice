@@ -37,14 +37,7 @@ class HomeViewModel: ObservableObject {
     
     
     func load() {
-//        do{
-//            if let data = UserDefaults(suiteName: groupIdentifier)?.data(forKey: "prices") {
-//                self.prices = try JSONDecoder().decode([Price].self, from: data)
-//            }
-//        } catch {
-//            self.prices = []
-//        }
-        
+
         Task {
             
             try await service.loadData()
@@ -63,18 +56,7 @@ class HomeViewModel: ObservableObject {
     
     func save(){
         print ("leaving homeview")
-//        do{
-//            let data = try JSONEncoder().encode(self.price)
-//            UserDefaults(suiteName: groupIdentifier)?.set(data, forKey: "prices")
-//            UserDefaults(suiteName: groupIdentifier)?.set((self.price.first?.deal ?? 0.0), forKey: "lastPrice")
-//
-//            UserDefaults(suiteName: groupIdentifier)?.set((self.price[1] == nil ? 0.0 : self.price[1].deal), forKey: "lastPrice2")
-//
-//
-//        } catch {
-//            UserDefaults(suiteName: groupIdentifier)?.set([], forKey: "prices")
-//        }
-        
+
     }
     
 }

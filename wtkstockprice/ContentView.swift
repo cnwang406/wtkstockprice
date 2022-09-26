@@ -26,20 +26,13 @@ struct ContentView: View {
                 SettingView().tabItem {
                     NavigationLink(destination: SettingView()) {
                         Image(systemName: "gear.circle")
-                        Text("setting")
+                        Text("Setting")
                     }
                 }
                 
             }
         }
-        .onAppear{
-//            Task{
-//                try await Service.shared.loadData2()
-//                try await Service.shared.parse()
-//                try await Service.shared.checkAlarm()
-//                
-//            }
-        }
+        
     }
 }
 
