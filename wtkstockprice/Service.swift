@@ -33,7 +33,8 @@ struct Price: Codable,Hashable, Identifiable {
         (sell - buy)
     }
     var deal: Double{
-        (buy + sell) / 2
+//        (buy + sell) / 2
+        buy
     }
     
     var priceUp: Bool = true
